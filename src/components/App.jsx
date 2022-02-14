@@ -7,20 +7,21 @@ function App() {
   });
 
   function nameHandler(event) {
-    const newValue = event.target.value;
-    const inputName = event.target.name;
+    const { value, name } = event.target;
 
-    if (inputName === "fName") {
-      setFullName({
-        fName: newValue,
-        lName: fullName.lName
-      });
-    } else {
-      setFullName({
-        fName: fullName.fName,
-        lName: newValue
-      });
-    }
+    setFullName((prevValue) => {
+      if (name === "fName") {
+        return {
+          fName: value,
+          lName: prevValue.lName
+        };
+      } else if (name === "lName") {
+        return {
+          fName: prevValue.fName,
+          lName: value
+        };
+      }
+    });
   }
 
   return (
